@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Mood Tracks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6ec7;
+            text-shadow: 0 0 10px #ff6ec7;
+        }
+
+        h2 {
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+
+        .track-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .track-card {
+            background: rgba(0,0,0,0.5);
+            border-radius: 20px;
+            width: 300px;
+            padding: 1.5rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .track-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px #ff6ec7;
+        }
+
+        .track-card p {
+            margin: 0.5rem 0;
+            font-weight: bold;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 0.5rem;
+            border-radius: 10px;
+        }
+
+        a {
+            color: #ff6ec7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .footer {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <h1>Mood: {{ mood.capitalize() }}</h1>
+    <h2>Your Personalized Tracks</h2>
+    <div class="track-list">
+        {% for track in tracks %}
+            <div class="track-card">
+                <p>{{ track.name }}</p>
+                <p>{{ track.artist }}</p>
+                {% if track.preview_url %}
+                    <audio controls>
+                        <source src="{{ track.preview_url }}" type="audio/mpeg">
+                        Your browser does not support audio.
+                    </audio>
+                {% else %}
+                    <p>No preview available</p>
+                {% endif %}
+                <p><a href="{{ track.spotify_url }}" target="_blank">Listen on Spotify</a></p>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="footer">Made by Ellie Johnston 🤍🫶</div>
+</body>
+</html>
